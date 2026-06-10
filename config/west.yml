@@ -10,9 +10,5 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       import: app/west.yml
-    - name: zmk-config
-      url: https://github.com/Keebart/zmk-config
-      revision: 01556a803e1be9313f4bb5bc66a6451f57eb0044
-      path: modules/zmk-config
   self:
     path: config
