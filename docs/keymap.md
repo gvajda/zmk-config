@@ -7,8 +7,8 @@
 
 | Layer | Hold |
 |-------|------|
-| SYM   | space or enter (middle thumbs) |
-| BRC   | tab or bspc (inner thumbs) |
+| SYM   | tab or bspc (inner thumbs) |
+| BRC   | space or enter (middle thumbs) |
 | FN    | esc or del (outer thumbs) |
 | KBD   | esc **and** del together |
 
@@ -22,14 +22,14 @@ Home-row mods (pinky→index): Ctrl, Alt, Cmd, Shift. Top-row holds = Ctrl+1..5 
              esc   spc   tab   │  bspc  ent   del
 ```
 
-## SYM (hold space / enter)
+## SYM (hold tab / bspc)
 ```
  1     2     3     4     5     │  6     7     8     9     0
  !/⌃   @/⌥   #/⌘   $/⇧   %     │  ^     &/⇧   */⌘   -/⌥   +/⌃
  `     ~     ·     ·     ·     │  ·     ·     ·     _     =
 ```
 
-## BRC (hold tab / bspc)
+## BRC (hold space / enter)
 ```
  ·     ⌥←    ↑     ⌥→    ·     │  ·     [     ]     ·     ·
  ⌘←/⌃  ←/⌥   ↓/⌘   →/⇧   ⌘→    │  ·     (/⇧   )/⌘   '/⌥   "/⌃
