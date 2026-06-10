@@ -76,6 +76,17 @@ include:
 Our keymap and config live in `config/piantor_pro_bt.keymap` and `config/piantor_pro_bt.conf`,
 overriding Keebart's defaults.
 
+### Physical layout / binding count
+
+The board's matrix is **42 positions** (21 per half, direct-scan, 6 thumbs). The board defines two
+physical-layout nodes: `default_layout` (42-key, 6 columns) and `five_col_layout` (36-key, 5
+columns). The 36-key unit is the same firmware with the two outer columns unpopulated (no switches
+there). We keep `chosen { zmk,physical-layout = &default_layout; }` and write **42 bindings per
+layer**: the 30 alphas + 6 thumbs carry the design below; the **6 outer-column positions**
+(left + right pinky-outer column, matrix positions 0, 11, 12, 23, 24, 35) are `&none` — physically
+absent on this unit, so harmless. The §4 maps show the logical 10-wide layout; the firmware file
+pads each row with `&none` outer keys.
+
 **Fallback (not chosen):** copy the 13 board files into this repo's `boards/arm/piantor_pro_bt/`
 for a zero-dependency, fully self-contained repo. Switch to this only if depending on Keebart's
 repo becomes a problem.
