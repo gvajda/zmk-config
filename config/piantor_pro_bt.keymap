@@ -49,12 +49,21 @@
         // Desktop switch on top row: tap = letter, hold = Ctrl+number.
         // Standalone hold (no second key needed), so no positional restriction;
         // tap-preferred favors the letter on quick taps.
+        //
+        // Tuned to be hard to trigger by accident:
+        //   tapping-term-ms = 280   -> must deliberately hold ~0.28s before the
+        //                              desktop switch fires (was 200, too twitchy).
+        //   require-prior-idle-ms = 250 -> if any key was pressed within 0.25s,
+        //                              this key resolves as a TAP (types the letter)
+        //                              instead of switching. So pressing two keys
+        //                              together / fast rolls just print letters and
+        //                              never jump desktops — the disruptive case.
         hd: hold_desktop {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "tap-preferred";
-            tapping-term-ms = <200>;
-            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            require-prior-idle-ms = <250>;
             bindings = <&kp>, <&kp>;
         };
     };
