@@ -1,0 +1,33 @@
+draw_config:
+  dark_mode: auto
+  n_columns: 2
+  append_colon_to_layer_header: false
+  separate_combo_diagrams: false
+  shrink_wide_legends: 6
+  footer_text: "Auto-generated from config/piantor_pro_bt.keymap by keymap-drawer — do not hand-edit."
+
+parse_config:
+  # Bare modifier keycodes (home-row mod holds) -> mac glyphs. Zero drift: taps stay auto-parsed.
+  zmk_keycode_map:
+    LCTRL: ⌃
+    RCTRL: ⌃
+    LALT: ⌥
+    RALT: ⌥
+    LGUI: ⌘
+    RGUI: ⌘
+    LSHFT: ⇧
+    RSHFT: ⇧
+  modifier_fn_map:
+    left_ctrl: ⌃
+    right_ctrl: ⌃
+    left_shift: ⇧
+    right_shift: ⇧
+    left_alt: ⌥
+    right_alt: ⌥
+    left_gui: ⌘
+    right_gui: ⌘
+    keycode_combiner: "{mods}{key}"
+    mod_combiner: "{mod_1}{mod_2}"
+    special_combinations:
+      left_ctrl+left_alt+left_gui+left_shift: ⌃⌥⌘⇧
+      left_ctrl+left_alt+left_shift: Meh

@@ -1,0 +1,52 @@
+name: Draw keymap
+
+# Renders config/piantor_pro_bt.keymap to docs/img/piantor_pro_bt.svg via
+# keymap-drawer and commits the result back, keeping the visual reference in
+# lockstep with the firmware. The SVG is never hand-edited.
+#
+# The board is a 42-position matrix with the outer pinky column unpopulated.
+# scripts/trim_outer_column.py drops those 6 positions so the keymap draws
+# against the board's real 36-key `five_col_layout` — a true 3x5+3, not a 3x6
+# with an empty column.
+
+on:
+  push:
+    paths:
+      - "config/*.keymap"
+      - "keymap_drawer.config.yaml"
+      - "boards/**/*-layouts.dtsi"
+      - "scripts/trim_outer_column.py"
+      - ".github/workflows/draw-keymap.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install keymap-drawer
+        run: pip install keymap-drawer pyyaml
+
+      - name: Render keymap SVG
+        run: |
+          set -euo pipefail
+          mkdir -p docs/img
+          keymap -c keymap_drawer.config.yaml parse -z config/piantor_pro_bt.keymap > /tmp/parsed.yaml
+          python3 scripts/trim_outer_column.py < /tmp/parsed.yaml > /tmp/trimmed.yaml
+          keymap -c keymap_drawer.config.yaml draw /tmp/trimmed.yaml \
+            -d boards/arm/piantor_pro_bt/piantor_pro_bt-layouts.dtsi -l five_col_layout \
+            > docs/img/piantor_pro_bt.svg
+
+      - name: Commit updated SVG
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: "docs/img/piantor_pro_bt.svg"
+          commit_message: "keymap-drawer: regenerate keymap SVG"

@@ -1,56 +1,32 @@
 # Piantor Pro BT — Keymap
 
 36-key Piantor Pro BT. Five layers, all reached from the thumb cluster.
-`/M` after a key = hold for modifier M (home-row mods). `·` = no key (blocked).
+
+![Piantor Pro BT keymap](img/piantor_pro_bt.svg)
+
+> Auto-generated from [`config/piantor_pro_bt.keymap`](../config/piantor_pro_bt.keymap)
+> by [keymap-drawer](https://github.com/caksoylar/keymap-drawer) on every push
+> (see [`.github/workflows/draw-keymap.yml`](../.github/workflows/draw-keymap.yml)).
+> **Edit the keymap, not this image.** In each key the large legend is the tap and
+> the small legend is the hold — a modifier (⌃ ⌥ ⌘ ⇧) or a layer name. A highlighted
+> thumb marks the key whose hold activates that layer.
 
 ## Layer activation
 
-| Layer | Hold |
-|-------|------|
-| SYM   | tab or bspc (inner thumbs) |
-| BRC   | space or enter (middle thumbs) |
-| FN    | esc or del (outer thumbs) |
-| KBD   | esc **and** del together |
+| Layer | Hold                        |
+|-------|-----------------------------|
+| SYM   | tab or bspc (inner thumbs)  |
+| BRC   | space (both middle thumbs)  |
+| FN    | esc or enter (outer thumbs) |
+| KBD   | esc **and** enter together  |
 
 Home-row mods (pinky→index): Ctrl, Alt, Cmd, Shift. Top-row holds = Ctrl+1..5 (macOS desktop switch).
 
-## BASE
-```
- q/⌃1  w/⌃2  e/⌃3  r/⌃4  t/⌃5  │  y     u     i     o     p
- a/⌃   s/⌥   d/⌘   f/⇧   g     │  h     j/⇧   k/⌘   l/⌥   ;/⌃
- z     x     c     v     b     │  n     m     ,     .     /
-             esc   spc   tab   │  bspc  ent   del
-```
+## Notes
 
-## SYM (hold tab / bspc)
-```
- 1     2     3     4     5     │  6     7     8     9     0
- !/⌃   @/⌥   #/⌘   $/⇧   %     │  ^     &/⇧   */⌘   -/⌥   +/⌃
- `     ~     ·     ·     ·     │  ·     ·     ·     _     =
-```
-
-## BRC (hold space / enter)
-```
- ·     ⌥←    ↑     ⌥→    ·     │  ·     [     ]     ·     ·
- ⌘←/⌃  ←/⌥   ↓/⌘   →/⇧   ⌘→    │  ·     (/⇧   )/⌘   '/⌥   "/⌃
- ·     ·     ·     ·     ⌃b    │  ·     {     }     \     |
-```
-
-## FN (hold esc / del)
-```
- F1    F2    F3    F4    F5    │  F6    F7    F8    F9    F10
- ·     ·     ·     ·     ·     │  vol-  vol+  🔇    F11   F12
- ⌘Z    ⌘X    ⌘C    ⌘V    ·     │  ◀◀    ▶❚❚   ▶▶    ·     ·
-```
-⌘Z/X/C/V most comfortable held with **del** (right thumb, opposite hand).
-
-## KBD (squeeze esc + del)
-```
- boot  reset ·     ·     ·     │  ·     ·     ·     ·     ·
- RGB   RGB-  RGB+  studio ·    │  BT0   BT1   BT2   BT3   BT4
- ·     ·     ·     ·     ·     │  BTclr ·     ·     ·     ·
-```
-RGB = toggle lights, RGB-/RGB+ = brightness, studio = ZMK Studio unlock.
-
-> Firmware note: this is the 42-position board with the outer column unpopulated; the keymap pads
-> each row with `&none` outer keys (matrix positions 0, 11, 12, 23, 24, 35).
+- **BRC esc:** hold a space thumb, then tap the right outer thumb → esc. (BRC remaps
+  that thumb to esc, so there is no enter inside BRC.)
+- **Clipboard (FN):** ⌘Z/X/C/V are most comfortable held with **enter** (right thumb, opposite hand).
+- **Firmware:** 42-position board with the outer pinky column unpopulated; the keymap
+  pads each row with `&none` (matrix positions 0, 11, 12, 23, 24, 35). The drawing trims
+  that column and renders the real 36-key 3×5+3 shape.
