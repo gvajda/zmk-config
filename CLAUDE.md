@@ -27,7 +27,10 @@ To force a build without a code change: use the **workflow_dispatch** trigger in
 | `config/west.yml` | ZMK module manifest; pins ZMK to `v0.3` |
 | `build.yaml` | CI matrix (left/right halves, cmake args) |
 | `boards/arm/piantor_pro_bt/` | Vendored board definition (DTS, Kconfig, layouts) |
-| `docs/keymap.md` | Human-readable visual layer reference — keep in sync with keymap |
+| `README.md` | Landing page: auto-generated keymap diagram + layer reference |
+| `keymap_drawer.config.yaml` | keymap-drawer styling/glyph config for the diagram |
+| `scripts/trim_outer_column.py` | Trims the unpopulated outer column before drawing |
+| `docs/img/piantor_pro_bt.svg` | Generated keymap diagram (do not hand-edit) |
 
 ## Keymap architecture
 

@@ -1,6 +1,6 @@
 draw_config:
   dark_mode: auto
-  n_columns: 2
+  n_columns: 1
   append_colon_to_layer_header: false
   separate_combo_diagrams: false
   shrink_wide_legends: 6
