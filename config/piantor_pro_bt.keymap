@@ -109,7 +109,7 @@
                 &none  &none               &kp LA(LEFT)   &kp UP          &kp LA(RIGHT)     &none          &none   &kp LBKT         &kp RBKT        &kp BSPC       &kp ESC         &none
                 &none  &hml LCTRL LG(LEFT) &hml LALT LEFT  &hml LGUI DOWN  &hml LSHFT RIGHT  &kp LG(RIGHT)  &none   &hmr RSHFT LPAR  &hmr RGUI RPAR  &hmr RALT SQT  &hmr RCTRL DQT  &none
                 &none  &kp GRAVE           &kp TILDE      &kp BSLH        &kp PIPE          &kp LC(B)      &none   &kp LBRC         &kp RBRC        &kp MINUS      &kp UNDER       &none
-                                                          &trans          &trans            &trans         &trans  &trans           &kp ESC
+                                                          &trans          &trans            &trans         &trans  &trans           &kp DEL
             >;
         };
 
