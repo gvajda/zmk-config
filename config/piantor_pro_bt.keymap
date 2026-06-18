@@ -70,7 +70,7 @@
 
     combos {
         compatible = "zmk,combos";
-        // Squeeze both outer thumbs (esc + del) -> kbd layer (4).
+        // Squeeze both outer thumbs (esc + ent) -> kbd layer (4).
         combo_kbd {
             timeout-ms = <40>;
             require-prior-idle-ms = <150>;
@@ -89,7 +89,7 @@
                 &none  &hd LC(N1) Q  &hd LC(N2) W  &hd LC(N3) E  &hd LC(N4) R  &hd LC(N5) T      &kp Y      &kp U         &kp I         &kp O        &kp P            &none
                 &none  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHFT F  &kp G             &kp H      &hmr RSHFT J  &hmr RGUI K   &hmr RALT L  &hmr RCTRL SEMI  &none
                 &none  &kp Z         &kp X         &kp C         &kp V         &kp B             &kp N      &kp M         &kp COMMA     &kp DOT      &kp FSLH         &none
-                                                   &lt 3 ESC     &lt 2 SPACE   &lt 1 TAB         &lt 1 BSPC &lt 2 RET     &lt 3 DEL
+                                                   &lt 3 ESC     &lt 2 SPACE   &lt 1 TAB         &lt 1 BSPC &lt 2 SPACE   &lt 3 RET
             >;
         };
 
@@ -106,10 +106,10 @@
         brc_layer {
             display-name = "BRC";
             bindings = <
-                &none  &none               &kp LA(LEFT)   &kp UP          &kp LA(RIGHT)     &none          &none   &kp LBKT         &kp RBKT        &none          &none           &none
+                &none  &none               &kp LA(LEFT)   &kp UP          &kp LA(RIGHT)     &none          &none   &kp LBKT         &kp RBKT        &kp BSPC       &kp ESC         &none
                 &none  &hml LCTRL LG(LEFT) &hml LALT LEFT  &hml LGUI DOWN  &hml LSHFT RIGHT  &kp LG(RIGHT)  &none   &hmr RSHFT LPAR  &hmr RGUI RPAR  &hmr RALT SQT  &hmr RCTRL DQT  &none
-                &none  &none               &none          &none           &none             &kp LC(B)      &none   &kp LBRC         &kp RBRC        &kp BSLH       &kp PIPE        &none
-                                                          &trans          &trans            &trans         &trans  &trans           &trans
+                &none  &kp GRAVE           &kp TILDE      &kp BSLH        &kp PIPE          &kp LC(B)      &none   &kp LBRC         &kp RBRC        &kp MINUS      &kp UNDER       &none
+                                                          &trans          &trans            &trans         &trans  &trans           &kp ESC
             >;
         };
 
@@ -117,8 +117,8 @@
             display-name = "FN";
             bindings = <
                 &none  &kp F1     &kp F2     &kp F3     &kp F4     &kp F5      &kp F6        &kp F7        &kp F8       &kp F9   &kp F10  &none
-                &none  &none      &none      &none      &none      &none       &kp C_VOL_DN  &kp C_VOL_UP  &kp C_MUTE   &kp F11  &kp F12  &none
-                &none  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &none       &kp C_PREV    &kp C_PP      &kp C_NEXT   &none    &none    &none
+                &none  &kp LC(LS(Z))  &kp LA(TAB)  &kp LG(LC(LA(LS(SPACE))))  &kp LG(LS(N4))  &none       &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &kp F11  &kp F12  &none
+                &none  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &none       &none         &kp C_PREV    &kp C_PP     &kp C_NEXT  &none    &none
                                              &trans     &trans     &trans      &trans        &trans        &trans
             >;
         };
