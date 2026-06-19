@@ -117,7 +117,7 @@
             display-name = "FN";
             bindings = <
                 &none  &kp F1     &kp F2     &kp F3     &kp F4     &kp F5      &kp F6        &kp F7        &kp F8       &kp F9   &kp F10  &none
-                &none  &kp LC(LS(Z))  &kp LA(TAB)  &kp LG(LC(LA(LS(SPACE))))  &kp LG(LS(N4))  &none       &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &kp F11  &kp F12  &none
+                &none  &kp LC(LS(Z))  &kp LA(TAB)  &kp LG(LC(LA(LS(SPACE))))  &kp LG(LS(N4))  &kp LC(LG(Q))  &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &kp F11  &kp F12  &none
                 &none  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &none       &none         &kp C_PREV    &kp C_PP     &kp C_NEXT  &none    &none
                                              &trans     &trans     &trans      &trans        &trans        &trans
             >;
