@@ -70,7 +70,7 @@
 
     combos {
         compatible = "zmk,combos";
-        // Squeeze both outer thumbs (esc + ent) -> kbd layer (4).
+        // Squeeze both outer thumbs (esc + del) -> kbd layer (4).
         combo_kbd {
             timeout-ms = <40>;
             require-prior-idle-ms = <150>;
@@ -107,7 +107,7 @@
             display-name = "BRC";
             bindings = <
                 &none  &none               &kp LA(LEFT)   &kp UP          &kp LA(RIGHT)     &none          &none   &kp LBKT         &kp RBKT        &kp BSPC       &kp ESC         &none
-                &none  &hml LCTRL LG(LEFT) &hml LALT LEFT  &hml LGUI DOWN  &hml LSHFT RIGHT  &kp LG(RIGHT)  &none   &hmr RSHFT LPAR  &hmr RGUI RPAR  &hmr RALT SQT  &hmr RCTRL DQT  &none
+                &none  &hml LCTRL LG(LEFT) &hml LALT LEFT  &hml LGUI DOWN  &hml LSHFT RIGHT  &kp LG(RIGHT)  &none   &hmr RSHFT LPAR  &hmr RGUI RPAR  &hmr RALT DQT  &hmr RCTRL SQT  &none
                 &none  &kp GRAVE           &kp TILDE      &kp BSLH        &kp PIPE          &kp LC(B)      &none   &kp LBRC         &kp RBRC        &kp MINUS      &kp UNDER       &none
                                                           &trans          &trans            &trans         &trans  &trans           &kp RET
             >;
