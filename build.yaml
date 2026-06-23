@@ -9,3 +9,13 @@ include:
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: piantor_pro_bt_right
+  # Settings-reset images. Flash to BOTH halves to wipe stored settings
+  # (ZMK Studio keymap override + BT bonds), then reflash the normal firmware
+  # above. This is the only way to clear a Studio override when the KBD layer
+  # is unreachable. NOT a normal-use firmware.
+  - board: piantor_pro_bt_left
+    shield: settings_reset
+    artifact-name: settings_reset_left
+  - board: piantor_pro_bt_right
+    shield: settings_reset
+    artifact-name: settings_reset_right
