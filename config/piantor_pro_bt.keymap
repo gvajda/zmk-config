@@ -46,6 +46,33 @@
             hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41>;
             hold-trigger-on-release;
         };
+        // Shift-only variants of hml/hmr with a shorter require-prior-idle (100 vs
+        // 150). Shift is the one mod legitimately needed mid-flow (backspace →
+        // shift+letter corrections); at 150ms those resolved as taps. Fast rolls
+        // (<100ms gaps) stay protected. Tune: corrections still eaten -> 75;
+        // stray capitals in fast typing -> back toward 120.
+        hsl: home_row_shift_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <100>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 36 37 38 39 40 41>;
+            hold-trigger-on-release;
+        };
+        hsr: home_row_shift_right {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <100>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41>;
+            hold-trigger-on-release;
+        };
         // Desktop switch on top row: tap = letter, hold = Ctrl+number.
         // Standalone hold (no second key needed), so no positional restriction;
         // tap-preferred favors the letter on quick taps.
@@ -87,7 +114,7 @@
             display-name = "BASE";
             bindings = <
                 &none  &hd LC(N1) Q  &hd LC(N2) W  &hd LC(N3) E  &hd LC(N4) R  &hd LC(N5) T      &kp Y      &kp U         &kp I         &kp O        &kp P            &none
-                &none  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hml LSHFT F  &kp G             &kp H      &hmr RSHFT J  &hmr RGUI K   &hmr RALT L  &hmr RCTRL SEMI  &none
+                &none  &hml LCTRL A  &hml LALT S   &hml LGUI D   &hsl LSHFT F  &kp G             &kp H      &hsr RSHFT J  &hmr RGUI K   &hmr RALT L  &hmr RCTRL SEMI  &none
                 &none  &kp Z         &kp X         &kp C         &kp V         &kp B             &kp N      &kp M         &kp COMMA     &kp DOT      &kp FSLH         &none
                                                    &lt 3 ESC     &lt 2 SPACE   &lt 1 TAB         &lt 1 BSPC &lt 2 SPACE   &lt 3 DEL
             >;
@@ -96,8 +123,8 @@
         sym_layer {
             display-name = "SYM";
             bindings = <
-                &none  &kp N1           &kp N2          &kp N3          &kp N4           &kp N5      &kp N6     &kp N7           &kp N8           &kp N9           &kp N0           &none
-                &none  &hml LCTRL EXCL  &hml LALT AT    &hml LGUI HASH  &hml LSHFT DLLR  &kp PRCNT   &kp CARET  &hmr RSHFT AMPS  &hmr RGUI ASTRK  &hmr RALT MINUS  &hmr RCTRL PLUS  &none
+                &none  &kp EXCL         &kp AT          &kp HASH        &kp DLLR         &kp PRCNT   &kp CARET  &kp AMPS         &kp ASTRK        &kp MINUS        &kp PLUS         &none
+                &none  &hml LCTRL N1    &hml LALT N2    &hml LGUI N3    &hml LSHFT N4    &kp N5      &kp N6     &hmr RSHFT N7    &hmr RGUI N8     &hmr RALT N9     &hmr RCTRL N0    &none
                 &none  &kp GRAVE        &kp TILDE       &none           &none            &none       &none      &none            &none            &kp UNDER        &kp EQUAL        &none
                                                         &trans          &trans           &trans      &trans     &trans           &trans
             >;
@@ -117,7 +144,7 @@
             display-name = "FN";
             bindings = <
                 &none  &kp F1     &kp F2     &kp F3     &kp F4     &kp F5      &kp F6        &kp F7        &kp F8       &kp F9   &kp F10  &none
-                &none  &kp LC(LS(Z))  &kp LA(TAB)  &kp LG(LC(LA(LS(SPACE))))  &kp LG(LS(N4))  &kp LC(LG(Q))  &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &kp F11  &kp F12  &none
+                &none  &kp LG(A)  &kp LC(LS(Z))  &kp LG(LC(LA(LS(SPACE))))  &kp LG(LS(N4))  &kp LC(LG(Q))  &kp C_MUTE    &kp C_VOL_DN  &kp C_VOL_UP  &kp F11  &kp F12  &none
                 &none  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &none       &none         &kp C_PREV    &kp C_PP     &kp C_NEXT  &none    &none
                                              &trans     &trans     &trans      &trans        &trans        &trans
             >;
