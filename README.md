@@ -25,13 +25,12 @@ SYM puts numbers on the home row (with the same mods) and their shifted symbols 
 
 ## Notes
 
-- **BRC enter:** hold a space thumb, then tap the right outer thumb → enter. (BRC remaps
-  that thumb to enter — restoring it, since base gives the outer thumb to del.)
+- **BRC enter:** hold a space thumb, then tap either outer thumb → enter (base gives the
+  outer thumbs to esc/del; BRC remaps both to enter so it is reachable from either hand).
 - **Clipboard (FN):** ⌘A/Z/X/C/V and ^⇧Z (clipboard manager) sit on the left hand — hold
   **del** (right thumb) for two-handed use, or **esc** (left thumb) for one-handed.
-- **Firmware:** 42-position board with the outer pinky column unpopulated; the keymap
-  pads each row with `&none` (matrix positions 0, 11, 12, 23, 24, 35). The drawing trims
-  that column and renders the real 36-key 3×5+3 shape.
+- **Sleep:** deep sleep after 2 h idle (ZMK default 15 min) — waking from deep sleep
+  needs a BLE reconnect that takes seconds; see [`config/piantor_pro_bt.conf`](config/piantor_pro_bt.conf).
 
 ## Build
 
