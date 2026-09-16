@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HRM timing log</title>
+<style>
+  body { font: 14px/1.4 -apple-system, system-ui, sans-serif; margin: 16px; max-width: 900px; }
+  textarea { width: 100%; box-sizing: border-box; font: 16px monospace; }
+  #target { color: #666; }
+  table { border-collapse: collapse; font: 12px monospace; width: 100%; }
+  td, th { padding: 2px 6px; text-align: right; border-bottom: 1px solid #ddd; }
+  td:first-child, th:first-child { text-align: left; }
+  tr.mod { background: #fff3cd; }
+  tr.overlap { color: #b00; }
+  button { margin-right: 8px; }
+</style>
+</head>
+<body>
+<p>Type in the box. Every key's down/up time is logged (ms, relative to the first key).
+Rows in <span style="background:#fff3cd">yellow</span> are modifiers, meaning ZMK decided <em>hold</em>.
+Rows in <span style="color:#b00">red</span> overlapped the previous key: it was pressed before the previous key came up.
+<b>gap</b> = this down minus previous down. <b>hold</b> = down to up. <b>overlap</b> = previous up minus this down (positive = you were still holding the previous key).</p>
+
+<details open><summary>Drill text (dense in capital I, sentence starts, and f-initial cross-hand rolls)</summary>
+<p id="target">When I first got the keyboard I found the home row mods fun for a few days, then I hit the wall. Every time I wanted a capital I got two letters instead. I fixed a few things, but I still find it hard to release the letter first. If I type slowly it works, and if I fly it fails. So I sit here and I type for the log. I fill the file with words like find, fix, fun, fine, fold, for, from, fit and if, and I let the fingers go. Jump in, Jane said, just join the flow. Do I hold the key or do I fly? I do not know yet. I only know the log will tell. Fine, I will type a bit more: I fear I fall into the old habit, I feel the f under my finger, I fire it and I fly on. If the log shows what I think it shows, then I know what to fix, and if not, I try again. I am done for now.</p>
+</details>
+<textarea id="box" rows="4" placeholder="type here"></textarea>
+<p>
+  <button id="copy">Copy log as TSV</button>
+  <button id="clear">Clear</button>
+  <span id="count"></span>
+</p>
+<table><thead><tr><th>key</th><th>down</th><th>up</th><th>hold</th><th>gap</th><th>overlap</th></tr></thead><tbody id="rows"></tbody></table>
+
+<script>
+// Keys are identified by e.code (physical) with e.key shown, so "f" that ZMK
+// turned into Shift shows up as ShiftLeft, not as f. Auto-repeat is ignored.
+const rows = [];      // {key, code, down, up}
+const open = {};      // code -> row
+let t0 = null;
+const box = document.getElementById('box');
+const tbody = document.getElementById('rows');
+const now = () => performance.now();
+
+box.addEventListener('keydown', e => {
+  if (e.repeat || open[e.code]) return;
+  if (t0 === null) t0 = now();
+  const prev = rows[rows.length - 1];
+  const r = { key: e.key.length === 1 ? e.key : e.key.replace('Left','L').replace('Right','R'), code: e.code, down: now() - t0, up: null, prev };
+  rows.push(r); open[e.code] = r;
+  render(r);
+});
+box.addEventListener('keyup', e => {
+  const r = open[e.code]; if (!r) return;
+  r.up = now() - t0; delete open[e.code];
+  render(r);
+});
+box.addEventListener('blur', () => { for (const c in open) { open[c].up = now() - t0; render(open[c]); delete open[c]; } });
+
+function fmt(v) { return v == null ? '' : v.toFixed(1); }
+function render(r) {
+  const p = r.prev;
+  const gap = p ? r.down - p.down : null;
+  const overlap = p && p.up != null ? p.up - r.down : null;
+  r.hold = r.up == null ? null : r.up - r.down; r.gap = gap; r.overlap = overlap;
+  let tr = r.tr || (r.tr = tbody.insertRow());
+  tr.className = (/^(Shift|Control|Alt|Meta)/.test(r.code) ? 'mod ' : '') + (overlap > 0 ? 'overlap' : '');
+  tr.innerHTML = `<td>${r.key}</td><td>${fmt(r.down)}</td><td>${fmt(r.up)}</td><td>${fmt(r.hold)}</td><td>${fmt(gap)}</td><td>${fmt(overlap)}</td>`;
+  document.getElementById('count').textContent = rows.length + ' events';
+  tr.scrollIntoView({ block: 'nearest' });
+}
+
+document.getElementById('copy').onclick = () => {
+  const head = 'key\tdown\tup\thold\tgap\toverlap\ntyped:\t' + box.value.replace(/\n/g, '\\n') + '\n';
+  const body = rows.map(r => [r.key, fmt(r.down), fmt(r.up), fmt(r.hold), fmt(r.gap), fmt(r.overlap)].join('\t')).join('\n');
+  navigator.clipboard.writeText(head + body);
+};
+document.getElementById('clear').onclick = () => { rows.length = 0; tbody.innerHTML = ''; box.value = ''; t0 = null; for (const c in open) delete open[c]; document.getElementById('count').textContent = ''; box.focus(); };
+</script>
+</body>
+</html>

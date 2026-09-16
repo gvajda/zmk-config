@@ -54,18 +54,24 @@
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
         };
-        // Shift-only variants of hml/hmr with a shorter require-prior-idle (100 vs
-        // 150). Shift is the one mod legitimately needed mid-flow (backspace →
-        // shift+letter corrections); at 150ms those resolved as taps. Fast rolls
-        // (<100ms gaps) stay protected. Tune: corrections still eaten -> 75;
-        // stray capitals in fast typing -> back toward 120.
+        // Shift-only variants of hml/hmr with a shorter require-prior-idle (70 vs
+        // 150). Shift is the one mod legitimately needed mid-flow: "…and I" or
+        // camelCase. require-prior-idle counts from the previous key *press*
+        // (space included), so at 100 a fast space→F gap forced F to a tap and
+        // produced "fi" for "I". 70 follows sunaku's index-shift cooldown
+        // (70-80). Tune: capitals still eaten -> 50; stray capitals in fast
+        // cross-hand rolls ("stRT") -> back toward 100.
+        //
+        // Not fixable by prior-idle: with the balanced flavor the letter must be
+        // released BEFORE the shift key (or the 200 ms tapping term must expire),
+        // or shift resolves as a tap ("fi" again).
         hsl: home_row_shift_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <100>;
+            require-prior-idle-ms = <70>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
@@ -76,7 +82,7 @@
             flavor = "balanced";
             tapping-term-ms = <200>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <100>;
+            require-prior-idle-ms = <70>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;

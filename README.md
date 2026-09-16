@@ -37,3 +37,17 @@ SYM puts numbers on the home row (with the same mods) and their shifted symbols 
 No local toolchain — firmware builds on **GitHub Actions**. Push to `main` or open a PR,
 or trigger the build manually via `workflow_dispatch`. See [CLAUDE.md](CLAUDE.md) for the
 repo layout and build details.
+
+## Debugging misfires
+
+Two data sources, best used together while typing a drill like `I find it. I fix it.`:
+
+1. **Firmware decisions.** Flash `piantor_pro_bt_left_usb_logging.uf2` (built by CI) to the left half, plug it in over USB, then in a terminal:
+   ```
+   sudo cu -l /dev/tty.usbmodem*      # or: brew install tio && sudo tio /dev/tty.usbmodem*
+   ```
+   Every hold-tap logs `<position> decided hold/tap (<flavor> decision moment <timer|key-up|other-key-up>)` with a timestamp. Position 13 is F, 16 is J. Flash the normal image back afterwards; logging costs battery.
+2. **Your timing.** Open `docs/hrm-timing.html` in a browser and type in the box. It logs every key's down/up time, hold length, gap from the previous key and overlap with it. Yellow rows are modifiers, meaning ZMK decided hold. Copy the log as TSV.
+
+Feed both logs plus `config/piantor_pro_bt.keymap` to an assistant, or eyeball them: a wanted capital that came out as `fi` shows as `f` released before `i` in the timing page and `13 decided tap (balanced decision moment key-up)` in the firmware log.
+

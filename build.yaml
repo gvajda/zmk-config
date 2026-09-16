@@ -8,6 +8,14 @@ include:
     artifact-name: piantor_pro_bt_left
   - board: piantor_pro_bt_right
     artifact-name: piantor_pro_bt_right
+  # Debug image: same firmware plus USB CDC logging (hold-tap decisions etc.).
+  # Left half only (the central runs all behaviors). Costs battery; flash the
+  # normal image back when done. The workflow passes one snippet per target,
+  # so this one has no Studio-over-USB (Studio still works over BLE).
+  # Read on macOS: sudo cu -l /dev/tty.usbmodem*   (or: brew install tio)
+  - board: piantor_pro_bt_left
+    snippet: zmk-usb-logging
+    artifact-name: piantor_pro_bt_left_usb_logging
   # Settings-reset images. Flash to BOTH halves to wipe stored settings
   # (ZMK Studio keymap override + BT bonds), then reflash the normal firmware
   # above. This is the only way to clear a Studio override when the KBD layer
