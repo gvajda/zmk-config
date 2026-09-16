@@ -54,38 +54,44 @@
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
         };
-        // Shift-only variants of hml/hmr with a shorter require-prior-idle (70 vs
-        // 150). Shift is the one mod legitimately needed mid-flow: "…and I" or
-        // camelCase. require-prior-idle counts from the previous key *press*
-        // (space included), so at 100 a fast space→F gap forced F to a tap and
-        // produced "fi" for "I". 70 follows sunaku's index-shift cooldown
-        // (70-80). Tune: capitals still eaten -> 50; stray capitals in fast
-        // cross-hand rolls ("stRT") -> back toward 100.
+        // Shift-only variants of hml/hmr, tuned from a USB-log session
+        // (2026-09-16, ~120 F/J instances, see README "Debugging misfires"):
         //
-        // Not fixable by prior-idle: with the balanced flavor the letter must be
-        // released BEFORE the shift key (or the 200 ms tapping term must expire),
-        // or shift resolves as a tap ("fi" again).
+        //  - The user's capital-I chord is F down, I down ~100-150 ms later,
+        //    F up at ~170-240 ms, I up after F. Nested release almost never
+        //    happens (3 of 36 successes), so the hold is decided by the timer.
+        //    At 200 ms, 5 of 8 misses were F released at 170-200 ms. 175
+        //    catches those; the user's overlapped "fi" rolls (file, fill,
+        //    finger) release F at 115-160 ms, so they stay taps. Next knob if
+        //    misses persist: 160.
+        //  - retro-tap: a lone f/j held past the term still types the letter
+        //    on release instead of vanishing (lone f taps run up to 200 ms).
+        //  - require-prior-idle off: 3 of 8 misses were F pressed <70 ms after
+        //    a backspace/space (quick-tap verdict). The user's cross-hand rolls
+        //    never nest the letter inside F, so the guard bought nothing here.
+        //  - hold-preferred would fix every chord but also capitalise every
+        //    overlapped roll (8 for 8 in the log): same event sequence.
         hsl: home_row_shift_left {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <200>;
+            tapping-term-ms = <175>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <70>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
+            retro-tap;
         };
         hsr: home_row_shift_right {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
-            tapping-term-ms = <200>;
+            tapping-term-ms = <175>;
             quick-tap-ms = <175>;
-            require-prior-idle-ms = <70>;
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
+            retro-tap;
         };
         // Desktop switch on top row: tap = letter, hold = Ctrl+number.
         // Standalone hold (no second key needed), so no positional restriction;

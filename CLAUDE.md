@@ -57,7 +57,7 @@ Five layers, all reached via the 6-key thumb cluster (positions 30–35):
 **Home-row mods** use custom `hold-tap` behaviors (balanced, positional, `hold-trigger-on-release`):
 - `hml` (left hand) — only fires hold when a right-hand or thumb key follows
 - `hmr` (right hand) — only fires hold when a left-hand or thumb key follows
-- `hsl` / `hsr` — shift-only variants with a shorter `require-prior-idle-ms` (70 vs 150)
+- `hsl` / `hsr` — shift-only variants: `tapping-term-ms` 175, `retro-tap`, no `require-prior-idle-ms`; values come from a logged typing session (comment in the keymap explains each)
 - Order on both hands (pinky→index): Ctrl, Alt, Cmd (LGUI), Shift — i.e. CACS/SCAC
 
 Top-row keys use `hd` (hold_desktop): tap = letter, hold = Ctrl+N for macOS desktop switching.
