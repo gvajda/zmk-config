@@ -44,8 +44,11 @@ Two data sources, best used together while typing a drill like `I find it. I fix
 
 1. **Firmware decisions.** Flash `piantor_pro_bt_left_usb_logging.uf2` (built by CI) to the left half, plug it in over USB, then in a terminal:
    ```
-   sudo cu -l /dev/tty.usbmodem* | tee ~/Downloads/zmk.log     # Ctrl-C when done
-   grep decided ~/Downloads/zmk.log                            # just the hold-tap verdicts
+   script -q ~/Downloads/zmk.log cu -l /dev/cu.usbmodem*   # records the whole session to the file
+   ```
+   Type the drill, then quit cu with Enter, `~`, `.` (Ctrl-C is sent to the keyboard, not to cu; and piping cu's output through tee makes it exit at once). No sudo needed, the device is world-readable. Then:
+   ```
+   grep decided ~/Downloads/zmk.log                          # just the hold-tap verdicts
    ```
    The raw stream is very chatty (every position event, BLE, battery). Every hold-tap logs `<position> decided hold/tap (<flavor> decision moment <timer|key-up|other-key-up>)` with a timestamp. Position 13 is F, 16 is J. Flash the normal image back afterwards; logging costs battery.
 2. **Your timing.** Open `docs/hrm-timing.html` in a browser and type in the box. It logs every key's down/up time, hold length, gap from the previous key and overlap with it. Yellow rows are modifiers, meaning ZMK decided hold. Copy the log as TSV.
