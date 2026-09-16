@@ -44,9 +44,9 @@ Two data sources, best used together while typing a drill like `I find it. I fix
 
 1. **Firmware decisions.** Flash `piantor_pro_bt_left_usb_logging.uf2` (built by CI) to the left half, plug it in over USB, then in a terminal:
    ```
-   script -q ~/Downloads/zmk.log cu -l /dev/cu.usbmodem*   # records the whole session to the file
+   script -q ~/Downloads/zmk.log sudo cu -l /dev/cu.usbmodem*   # records the whole session to the file
    ```
-   Type the drill, then quit cu with Enter, `~`, `.` (Ctrl-C is sent to the keyboard, not to cu; and piping cu's output through tee makes it exit at once). No sudo needed, the device is world-readable. Then:
+   Type the drill, then quit cu with Enter, `~`, `.` (Ctrl-C is sent to the keyboard, not to cu; and piping cu's output through tee makes it exit at once). cu needs sudo for its lock directory in /var/spool/uucp. Then:
    ```
    grep decided ~/Downloads/zmk.log                          # just the hold-tap verdicts
    ```
