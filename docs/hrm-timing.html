@@ -63,11 +63,10 @@ function render(r) {
   const gap = p ? r.down - p.down : null;
   const overlap = p && p.up != null ? p.up - r.down : null;
   r.hold = r.up == null ? null : r.up - r.down; r.gap = gap; r.overlap = overlap;
-  let tr = r.tr || (r.tr = tbody.insertRow());
+  let tr = r.tr || (r.tr = tbody.insertRow(0));   // newest on top, page never scrolls
   tr.className = (/^(Shift|Control|Alt|Meta)/.test(r.code) ? 'mod ' : '') + (overlap > 0 ? 'overlap' : '');
   tr.innerHTML = `<td>${r.key}</td><td>${fmt(r.down)}</td><td>${fmt(r.up)}</td><td>${fmt(r.hold)}</td><td>${fmt(gap)}</td><td>${fmt(overlap)}</td>`;
   document.getElementById('count').textContent = rows.length + ' events';
-  tr.scrollIntoView({ block: 'nearest' });
 }
 
 document.getElementById('copy').onclick = () => {
