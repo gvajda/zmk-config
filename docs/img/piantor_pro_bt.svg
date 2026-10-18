@@ -894,7 +894,7 @@ path.combo { stroke: #7f7f7f; }
 <g transform="translate(188, 226) rotate(-5.0)" class="key keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">ESC</text>
-<text x="0" y="24" class="key hold">⌃</text>
+<text x="0" y="24" class="key hold">⌘</text>
 </g>
 <g transform="translate(255, 227) rotate(5.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
