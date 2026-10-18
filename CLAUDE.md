@@ -53,7 +53,7 @@ Seven layers, all reached via the 6-key thumb cluster (positions 30–35):
 | BRC (2) | Hold middle thumbs (both SPACE) |
 | FN (3) | Hold outer thumbs (ESC / DEL) |
 | GAME (4) | Toggle: KBD layer, T position (`&tog 4`); left-hand-only RTS layout, plain keys |
-| GNUM (5) | Hold GAME's inner thumb: Ctrl+1..5 / 1..5 / H , . Enter Del |
+| GNUM (5) | Hold GAME's inner thumb: Cmd+1..5 / 1..5 / H , . Enter Del |
 | KBD (6) | Combo: squeeze ESC **and** DEL simultaneously (positions 30+35), on BASE and GAME |
 
 Layer order matters: a higher index shadows lower ones, so GNUM sits above GAME and KBD stays on top. The combo's `layers` checks the highest active layer, hence `<0 4>`.
