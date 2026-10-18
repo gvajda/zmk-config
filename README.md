@@ -32,7 +32,7 @@ SYM puts numbers on the home row (with the same mods) and their shifted symbols 
 - **Clipboard (FN):** ⌘A/Z/X/C/V and ^⇧Z (clipboard manager) sit on the left hand — hold
   **del** (right thumb) for two-handed use, or **esc** (left thumb) for one-handed.
 - **GAME (AoE2):** left hand on plain letters (no home-row mods or desktop holds), right
-  hand on the mouse. Thumbs: esc (hold = ctrl, for ctrl-click), shift, GNUM. GNUM: top row
+  hand on the mouse. Thumbs: esc (hold = cmd, for cmd-click), shift, GNUM. GNUM: top row
   cmd+1..5 (assign group), home row 1..5 (select), bottom H , . enter del. Toggle off the
   same way it was turned on.
 - **Sleep:** deep sleep after 2 h idle (ZMK default 15 min) — waking from deep sleep
