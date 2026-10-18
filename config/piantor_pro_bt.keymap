@@ -117,13 +117,14 @@
 
     combos {
         compatible = "zmk,combos";
-        // Squeeze both outer thumbs (esc + del) -> kbd layer (4).
+        // Squeeze both outer thumbs (esc + del) -> kbd layer (6).
+        // Also live on GAME (4) so the toggle back out is reachable.
         combo_kbd {
             timeout-ms = <40>;
             require-prior-idle-ms = <150>;
             key-positions = <30 35>;
-            bindings = <&mo 4>;
-            layers = <0>;
+            bindings = <&mo 6>;
+            layers = <0 4>;
         };
     };
 
@@ -171,10 +172,36 @@
             >;
         };
 
+        // Toggled from KBD (T position). Left hand for an RTS (AoE2), right
+        // hand on the mouse. Plain keys: no hold-tap latency, no desktop
+        // switch on held letters. Right half falls through to base.
+        game_layer {
+            display-name = "GAME";
+            bindings = <
+                &kp Q  &kp W  &kp E  &kp R  &kp T      &trans  &trans  &trans  &trans  &trans
+                &kp A  &kp S  &kp D  &kp F  &kp G      &trans  &trans  &trans  &trans  &trans
+                &kp Z  &kp X  &kp C  &kp V  &kp B      &trans  &trans  &trans  &trans  &trans
+                       &mt LCTRL ESC  &kp LSHFT  &mo 5      &trans  &trans  &trans
+            >;
+        };
+
+        // Held from GAME's inner thumb: top = assign control group, home =
+        // select group, bottom = town center / idle units / enter / delete
+        // (del on the index stretch so it is hard to hit by accident).
+        gnum_layer {
+            display-name = "GNUM";
+            bindings = <
+                &kp LC(N1)  &kp LC(N2)  &kp LC(N3)  &kp LC(N4)  &kp LC(N5)      &trans  &trans  &trans  &trans  &trans
+                &kp N1      &kp N2      &kp N3      &kp N4      &kp N5          &trans  &trans  &trans  &trans  &trans
+                &kp H       &kp COMMA   &kp DOT     &kp RET     &kp DEL         &trans  &trans  &trans  &trans  &trans
+                                        &none       &trans      &trans          &trans  &trans  &trans
+            >;
+        };
+
         kbd_layer {
             display-name = "KBD";
             bindings = <
-                &bootloader      &sys_reset       &none            &none           &none   &none         &none         &none         &none         &none
+                &bootloader      &sys_reset       &none            &none           &tog 4  &none         &none         &none         &none         &none
                 &rgb_ug RGB_TOG  &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &studio_unlock  &none   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
                 &none            &none            &none            &none           &none   &bt BT_CLR    &none         &none         &none         &none
                                                   &trans           &trans          &trans  &trans        &trans        &trans

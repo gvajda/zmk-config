@@ -1,6 +1,6 @@
 # Piantor Pro BT — ZMK config
 
-ZMK firmware config for a 36-key **Piantor Pro BT** split keyboard (macOS modifiers, ZMK v0.3). Five layers, all reached from the thumb cluster.
+ZMK firmware config for a 36-key **Piantor Pro BT** split keyboard (macOS modifiers, ZMK v0.3). Seven layers, all reached from the thumb cluster.
 
 ![Piantor Pro BT keymap](docs/img/piantor_pro_bt.svg)
 
@@ -19,6 +19,8 @@ ZMK firmware config for a 36-key **Piantor Pro BT** split keyboard (macOS modifi
 | BRC   | space (both middle thumbs)  |
 | FN    | esc or del (outer thumbs)   |
 | KBD   | esc **and** del together    |
+| GAME  | toggle: KBD layer, then T   |
+| GNUM  | inner left thumb (in GAME)  |
 
 Home-row mods (pinky→index): Ctrl, Alt, Cmd, Shift. Top-row holds = Ctrl+1..5 (macOS desktop switch).
 SYM puts numbers on the home row (with the same mods) and their shifted symbols on the top row.
@@ -29,6 +31,10 @@ SYM puts numbers on the home row (with the same mods) and their shifted symbols 
   outer thumbs to esc/del; BRC remaps both to enter so it is reachable from either hand).
 - **Clipboard (FN):** ⌘A/Z/X/C/V and ^⇧Z (clipboard manager) sit on the left hand — hold
   **del** (right thumb) for two-handed use, or **esc** (left thumb) for one-handed.
+- **GAME (AoE2):** left hand on plain letters (no home-row mods or desktop holds), right
+  hand on the mouse. Thumbs: esc (hold = ctrl, for ctrl-click), shift, GNUM. GNUM: top row
+  ctrl+1..5 (assign group), home row 1..5 (select), bottom H , . enter del. Toggle off the
+  same way it was turned on.
 - **Sleep:** deep sleep after 2 h idle (ZMK default 15 min) — waking from deep sleep
   needs a BLE reconnect that takes seconds; see [`config/piantor_pro_bt.conf`](config/piantor_pro_bt.conf).
 

@@ -45,14 +45,18 @@ thumbs: 30 31 32 left  33 34 35 right
 
 `KEYS_L`, `KEYS_R`, `THUMBS` macros at the top of the keymap hold these lists for positional hold-taps.
 
-Five layers, all reached via the 6-key thumb cluster (positions 30–35):
+Seven layers, all reached via the 6-key thumb cluster (positions 30–35):
 
 | Layer | Activation |
 |-------|------------|
 | SYM (1) | Hold inner thumbs (TAB / BSPC) |
 | BRC (2) | Hold middle thumbs (both SPACE) |
 | FN (3) | Hold outer thumbs (ESC / DEL) |
-| KBD (4) | Combo: squeeze ESC **and** DEL simultaneously (positions 30+35) |
+| GAME (4) | Toggle: KBD layer, T position (`&tog 4`); left-hand-only RTS layout, plain keys |
+| GNUM (5) | Hold GAME's inner thumb: Ctrl+1..5 / 1..5 / H , . Enter Del |
+| KBD (6) | Combo: squeeze ESC **and** DEL simultaneously (positions 30+35), on BASE and GAME |
+
+Layer order matters: a higher index shadows lower ones, so GNUM sits above GAME and KBD stays on top. The combo's `layers` checks the highest active layer, hence `<0 4>`.
 
 **Home-row mods** use custom `hold-tap` behaviors (balanced, positional, `hold-trigger-on-release`):
 - `hml` (left hand) — only fires hold when a right-hand or thumb key follows
