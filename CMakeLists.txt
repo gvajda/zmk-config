@@ -1,0 +1,1 @@
+target_sources_ifdef(CONFIG_LAYER_STATUS_GATT app PRIVATE src/layer_status_gatt.c)

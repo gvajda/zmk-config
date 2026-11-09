@@ -37,6 +37,10 @@ SYM puts numbers on the home row (with the same mods) and their shifted symbols 
   same way it was turned on.
 - **Sleep:** deep sleep after 2 h idle (ZMK default 15 min) — waking from deep sleep
   needs a BLE reconnect that takes seconds; see [`config/piantor_pro_bt.conf`](config/piantor_pro_bt.conf).
+- **Layer indicator:** the left half exposes its active layers over BLE
+  ([`src/layer_status_gatt.c`](src/layer_status_gatt.c)) so ZMK Battery Bar can show e.g. a
+  "G" in the menu bar while GAME is on. After first flashing it, remove and re-pair the
+  keyboard in macOS Bluetooth settings (macOS caches the old service list).
 
 ## Build
 
