@@ -1,0 +1,8 @@
+config LAYER_STATUS_GATT
+    bool "Expose active layers over a custom BLE GATT service"
+    depends on ZMK_BLE && (!ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL)
+    default y
+    help
+      Adds a GATT service the host can subscribe to for the set of active
+      layers (and read the layer names), e.g. for a menu bar layer indicator
+      in ZMK Battery Bar. Central half only: layer state lives there.

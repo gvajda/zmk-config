@@ -24,6 +24,7 @@ To force a build without a code change: use the **workflow_dispatch** trigger in
 |------|---------|
 | `config/piantor_pro_bt.keymap` | All layers, behaviors, combos — the main edit target |
 | `config/piantor_pro_bt.conf` | Kconfig overrides: keyboard name, sleep timeout, RGB defaults, per-half battery |
+| `src/layer_status_gatt.c` | Layer status GATT service (central only), read by ZMK Battery Bar's layer indicator; wired via `zephyr/module.yml` + root `CMakeLists.txt`/`Kconfig` |
 | `config/west.yml` | ZMK module manifest; pins ZMK to `v0.3` |
 | `build.yaml` | CI matrix (left/right halves, settings_reset, left USB-logging debug image) |
 | `docs/hrm-timing.html` | Local page logging key down/up timings, for tuning hold-taps (see README "Debugging misfires") |
@@ -80,6 +81,10 @@ Note: ZMK after v0.3 moves to Zephyr hardware model v2 (`boards/<vendor>/` + `bo
 - `CONFIG_ZMK_RGB_UNDERGLOW=y` but `CONFIG_ZMK_RGB_UNDERGLOW_ON_START=n` — lights are compiled in but off at boot to preserve battery. Toggle from the KBD layer.
 - `CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE=y` is a battery guard, keep it: EXT_POWER (the 21-LED strip's supply) defaults ON at boot and after `settings_reset`; ZMK only switches it off inside `rgb_underglow_off()`, which AUTO_OFF_IDLE triggers at the first idle. Without it the dark strip draws ~15 mA per half (drained 500 mAh in ~4 days, Sep 2026).
 - Per-half battery: `..._BATTERY_LEVEL_FETCHING` + `..._PROXY` expose the right half's level as a second BLE Battery Service for menu bar widgets. Keep these.
+
+## Layer status service
+
+`src/layer_status_gatt.c` (Kconfig `LAYER_STATUS_GATT`, default on for the central) adds a custom GATT service: `F8066FA3-1254-4931-A2CA-F24F572961B6`, with *state* `36FC306E-8D90-414C-81EE-052A5F4BF37E` (read/notify, uint32 LE, bit i = layer at index i active) and *names* `5D03CE99-6B0D-4883-BAC7-3B5708296AB9` (read, `\n`-separated names in index order). ZMK Battery Bar hardcodes these UUIDs — do not change them. Adding/removing a GATT service changes the layout macOS caches: re-pair the keyboard after flashing.
 
 ## Upstream sync check
 
