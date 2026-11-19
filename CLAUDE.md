@@ -70,7 +70,7 @@ Layer thumbs use `lth` (balanced hold-tap of `&mo`/`&kp`, 200 ms), not stock `&l
 
 Top-row keys use `hd` (hold_desktop): tap = letter, hold = Ctrl+N for macOS desktop switching.
 
-**KBD combo** activates the keyboard management layer (BT profile select, RGB toggle, bootloader, ZMK Studio unlock).
+**KBD combo** activates the keyboard management layer (BT profile select, RGB toggle, bootloader — Q for the left half, P for the right, since `&bootloader` runs on the half it sits on — ZMK Studio unlock).
 
 ## Vendored board
 
