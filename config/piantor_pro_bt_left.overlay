@@ -1,0 +1,18 @@
+/*
+ * Left (central) half only. TRIAL since 2026-11-19.
+ *
+ * Right-half key events reach the central over the split BLE link, which only
+ * delivers on 7.5 ms connection events (measured: every right-half event in a
+ * USB log landed on that grid). So a right-hand release is seen 0-7.5 ms late
+ * (15 ms on a retransmit). For F-shift + right letter (capital I) the user
+ * releases I just before F, but the central can see F up first -> balanced
+ * hold-tap decides tap -> "fi". Delaying left-hand releases by ~8 ms evens it.
+ *
+ * Cost: biases the other way. J-shift + left letter loses its old head start;
+ * a left letter released <8 ms before J can now come out lowercase. Chosen
+ * because F-shift is ~5x more common than J-shift (44 vs 9 in a log).
+ * Middle ground: 9. Revert: delete this file.
+ */
+&kscan0 {
+    debounce-release-ms = <13>; /* default 5 */
+};

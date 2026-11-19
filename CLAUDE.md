@@ -25,6 +25,7 @@ To force a build without a code change: use the **workflow_dispatch** trigger in
 | `config/piantor_pro_bt.keymap` | All layers, behaviors, combos — the main edit target |
 | `config/piantor_pro_bt.conf` | Kconfig overrides: keyboard name, sleep timeout, RGB defaults, per-half battery |
 | `src/layer_status_gatt.c` | Layer status GATT service (central only), read by ZMK Battery Bar's layer indicator; wired via `zephyr/module.yml` + root `CMakeLists.txt`/`Kconfig` |
+| `config/piantor_pro_bt_left.overlay` | **Trial (2026-11-19):** left-half `debounce-release-ms` 13 (default 5) to offset split BLE latency (see its comment). Suspect it first for odd left-hand release timing or J-shift capitals failing |
 | `config/west.yml` | ZMK module manifest; pins ZMK to `v0.3` |
 | `build.yaml` | CI matrix (left/right halves, settings_reset, left USB-logging debug image) |
 | `docs/hrm-timing.html` | Local page logging key down/up timings, for tuning hold-taps (see README "Debugging misfires") |
@@ -62,8 +63,10 @@ Layer order matters: a higher index shadows lower ones, so GNUM sits above GAME 
 **Home-row mods** use custom `hold-tap` behaviors (balanced, positional, `hold-trigger-on-release`):
 - `hml` (left hand) — only fires hold when a right-hand or thumb key follows
 - `hmr` (right hand) — only fires hold when a left-hand or thumb key follows
-- `hsl` / `hsr` — shift-only variants: `tapping-term-ms` 175, `retro-tap`, no `require-prior-idle-ms`; values come from a logged typing session (comment in the keymap explains each)
+- `hsl` / `hsr` — shift-only variants: `tapping-term-ms` 175, no `require-prior-idle-ms`, no `retro-tap` (it withholds Shift from mouse use in ZMK v0.3); values come from a logged typing session (comment in the keymap explains each)
 - Order on both hands (pinky→index): Ctrl, Alt, Cmd (LGUI), Shift — i.e. CACS/SCAC
+
+Layer thumbs use `lth` (balanced hold-tap of `&mo`/`&kp`, 200 ms), not stock `&lt` (tap-preferred: layer only after the full 200 ms, so quick SPACE+; gave " ;").
 
 Top-row keys use `hd` (hold_desktop): tap = letter, hold = Ctrl+N for macOS desktop switching.
 

@@ -64,8 +64,11 @@
         //    catches those; the user's overlapped "fi" rolls (file, fill,
         //    finger) release F at 115-160 ms, so they stay taps. Next knob if
         //    misses persist: 160.
-        //  - retro-tap: a lone f/j held past the term still types the letter
-        //    on release instead of vanishing (lone f taps run up to 200 ms).
+        //  - No retro-tap (removed 2026-11-19): in ZMK v0.3 retro-tap withholds
+        //    the hold at timeout until another KEY is pressed, so Shift never
+        //    reached the host for Shift+scroll/click. Without it Shift lands
+        //    at 175 ms like Cmd does at 200. Cost: a lone f/j held past 175 ms
+        //    with no other key types nothing (log had lone f taps up to 200).
         //  - require-prior-idle off: 3 of 8 misses were F pressed <70 ms after
         //    a backspace/space (quick-tap verdict). The user's cross-hand rolls
         //    never nest the letter inside F, so the guard bought nothing here.
@@ -80,7 +83,6 @@
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_R THUMBS>;
             hold-trigger-on-release;
-            retro-tap;
         };
         hsr: home_row_shift_right {
             compatible = "zmk,behavior-hold-tap";
@@ -91,7 +93,20 @@
             bindings = <&kp>, <&kp>;
             hold-trigger-key-positions = <KEYS_L THUMBS>;
             hold-trigger-on-release;
-            retro-tap;
+        };
+        // Layer thumbs (all six): hold = layer, tap = key. Replaces stock &lt,
+        // which is tap-preferred: the layer only activated after 200 ms, so a
+        // quick SPACE+; for an apostrophe typed " ;". Balanced like the
+        // home-row mods: the layer also wins when another key is pressed AND
+        // released while the thumb is still down. Cost: a letter fully nested
+        // inside a space press now lands on BRC (1 in 268 spaces in the
+        // 2026-09-16 log). No positional filter: layers are used from both hands.
+        lth: layer_thumb {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&kp>;
         };
         // Desktop switch on top row: tap = letter, hold = Ctrl+number.
         // Standalone hold (no second key needed), so no positional restriction;
@@ -137,7 +152,7 @@
                 &hd LC(N1) Q  &hd LC(N2) W  &hd LC(N3) E  &hd LC(N4) R  &hd LC(N5) T      &kp Y      &kp U         &kp I         &kp O        &kp P
                 &hml LCTRL A  &hml LALT S   &hml LGUI D   &hsl LSHFT F  &kp G             &kp H      &hsr RSHFT J  &hmr RGUI K   &hmr RALT L  &hmr RCTRL SEMI
                 &kp Z         &kp X         &kp C         &kp V         &kp B             &kp N      &kp M         &kp COMMA     &kp DOT      &kp FSLH
-                                            &lt 3 ESC     &lt 2 SPACE   &lt 1 TAB         &lt 1 BSPC &lt 2 SPACE   &lt 3 DEL
+                                            &lth 3 ESC     &lth 2 SPACE   &lth 1 TAB         &lth 1 BSPC &lth 2 SPACE   &lth 3 DEL
             >;
         };
 
@@ -145,7 +160,7 @@
             display-name = "SYM";
             bindings = <
                 &kp EXCL         &kp AT          &kp HASH        &kp DLLR         &kp PRCNT   &kp CARET  &kp AMPS         &kp ASTRK        &kp MINUS        &kp PLUS
-                &hml LCTRL N1    &hml LALT N2    &hml LGUI N3    &hml LSHFT N4    &kp N5      &kp N6     &hmr RSHFT N7    &hmr RGUI N8     &hmr RALT N9     &hmr RCTRL N0
+                &hml LCTRL N1    &hml LALT N2    &hml LGUI N3    &hsl LSHFT N4    &kp N5      &kp N6     &hsr RSHFT N7    &hmr RGUI N8     &hmr RALT N9     &hmr RCTRL N0
                 &kp GRAVE        &kp TILDE       &none           &none            &none       &none      &none            &none            &kp UNDER        &kp EQUAL
                                                  &trans          &trans           &trans      &trans     &trans           &trans
             >;
@@ -156,7 +171,7 @@
             // Outer thumbs both send enter, so enter is reachable from either hand.
             bindings = <
                 &none               &kp LA(LEFT)   &kp UP          &kp LA(RIGHT)     &none          &none   &kp LBKT         &kp RBKT        &kp BSPC       &kp ESC
-                &hml LCTRL LG(LEFT) &hml LALT LEFT  &hml LGUI DOWN  &hml LSHFT RIGHT  &kp LG(RIGHT)  &none   &hmr RSHFT LPAR  &hmr RGUI RPAR  &hmr RALT DQT  &hmr RCTRL SQT
+                &hml LCTRL LG(LEFT) &hml LALT LEFT  &hml LGUI DOWN  &hsl LSHFT RIGHT  &kp LG(RIGHT)  &none   &hsr RSHFT LPAR  &hmr RGUI RPAR  &hmr RALT DQT  &hmr RCTRL SQT
                 &kp GRAVE           &kp TILDE      &kp BSLH        &kp PIPE          &kp LC(B)      &none   &kp LBRC         &kp RBRC        &kp MINUS      &kp UNDER
                                                    &kp RET         &trans            &trans         &trans  &trans           &kp RET
             >;
